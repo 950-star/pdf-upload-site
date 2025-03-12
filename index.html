@@ -1,26 +1,31 @@
-<script>
-fetch('files.json')
-  .then(response => response.json())
-  .then(data => {
-      console.log(data); // Debugging: Check the JSON structure in the console
-      renderFolders(data);
-  })
-  .catch(error => console.error('Error loading JSON:', error));
-
-function renderFolders(data, parentElement = document.body) {
-    Object.keys(data).forEach(folder => {
-        let div = document.createElement('div');
-        div.innerHTML = `<strong>${folder}</strong>`;
-        parentElement.appendChild(div);
-
-        if (typeof data[folder] === 'object') {
-            renderFolders(data[folder], div);
-        } else {
-            let link = document.createElement('a');
-            link.href = data[folder];
-            link.textContent = folder;
-            div.appendChild(link);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Upload Site</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            text-align: center;
+            padding: 50px;
         }
-    });
-}
-</script>
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the PDF Upload Site</h1>
+        <p>This is a placeholder homepage. Your actual content should be displayed here.</p>
+    </div>
+</body>
+</html>
