@@ -8,24 +8,57 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #121212;
-            color: #ffffff;
+            color: white;
             text-align: center;
-            padding: 50px;
+            padding: 20px;
         }
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: auto;
             background: #1e1e1e;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Welcome to the PDF Upload Site</h1>
-        <p>This is a placeholder homepage. Your actual content should be displayed here.</p>
+        <p>Below are the available files:</p>
+        <ul id="file-list"></ul>
     </div>
+    
+    <script>
+        async function loadFiles() {
+            try {
+                let response = await fetch('files.json');
+                let data = await response.json();
+                let fileList = document.getElementById('file-list');
+                fileList.innerHTML = '';
+                
+                data.files.forEach(file => {
+                    let li = document.createElement('li');
+                    let link = document.createElement('a');
+                    link.href = file.path;
+                    link.textContent = file.name;
+                    link.target = "_blank";
+                    li.appendChild(link);
+                    fileList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('Error loading files:', error);
+                document.getElementById('file-list').innerHTML = '<p>Error loading files.</p>';
+            }
+        }
+        
+        loadFiles();
+    </script>
 </body>
 </html>
