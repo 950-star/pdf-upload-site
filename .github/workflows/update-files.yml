@@ -19,9 +19,10 @@ jobs:
       - name: Generate files.json
         run: |
           echo '{"files": [' > files.json
-          find uploads -type f | sed 's/^/{"path": "&"},/' >> files.json
+          find uploads -type f | awk '{print "{\"path\": \"" $0 "\"},"}' >> files.json
           sed -i '$ s/,$//' files.json
-          echo ']}' >> files.json
+          echo "]}" >> files.json
+
 
       - name: Commit and push if changed
         run: |
